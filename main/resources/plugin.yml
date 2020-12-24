@@ -1,0 +1,11 @@
+name: EverGlow
+version: ${project.version}
+main: io.github.midnightfury.everglow.EverGlow
+api-version: 1.16
+authors: [ Midnightfury ]
+description: Makes All Players Glow
+website: midnightfury.github.io
+commands:
+  glow:
+    usage: /<command> <player> <on|off>
+    description: turns glowing on or off (stays glowing with death)
