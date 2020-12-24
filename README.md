@@ -1,0 +1,2 @@
+# EverGlow
+A minecraft plugin
