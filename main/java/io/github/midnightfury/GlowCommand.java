@@ -8,62 +8,71 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class GlowCommand implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length >= 2){
-            if(sender.isOp()){
-                Player player = (Player) Bukkit.getPlayer(args[0]);
-                if(!player.isOnline()) {
-                    sender.sendMessage("§cThat player is Offline!");
-                }
-                if(args[1].toLowerCase().equals("on")) {
-                    if(player.isGlowing()) {
-                        sender.sendMessage("§cThat player is already glowing!");
-                        return true;
-                    }
-                    player.setGlowing(true);
-                    sender.sendMessage("§a" + player.getDisplayName() + " §ais now glowing");
-                    return true;
-                }
-                if(args[1].toLowerCase().equals("off")) {
-                    if(!player.isGlowing()) {
-                        sender.sendMessage("§cThat player was never glowing");
-                        return true;
-                    }
-                    player.setGlowing(false);
-                    sender.sendMessage("§a" + player.getDisplayName() + " §ais no longer glowing");
-                    return true;
-                }
-                else {
-                    sender.sendMessage("§cYou gotta be opped for that!");
-                    return true;
-                }
-            }
-        }
-        else {
+        if (args.length < 2) {
             sender.sendMessage("§cNot enough args!");
+            // Return false because usage was incorrect
+            // https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/command/CommandExecutor.html#onCommand(org.bukkit.command.CommandSender,org.bukkit.command.Command,java.lang.String,java.lang.String%5B%5D)
+            return false;
         }
-        return true;
+
+        if (!sender.isOp()) {
+            sender.sendMessage("§cYou gotta be opped for that!");
+            return true;
+        }
+
+        Player player = (Player) Bukkit.getPlayer(args[0]);
+        if (!player.isOnline()) {
+            sender.sendMessage("§c" + player.getDisplayName() + " is offline");
+            return true;
+        }
+
+        String glowStateArgument = args[1].toLowerCase();
+        if (glowStateArgument.equals("on")) {
+            if (player.isGlowing()) {
+                sender.sendMessage("§c" + player.getDisplayName() + " is already glowing");
+                return true;
+            }
+
+            player.setGlowing(true);
+            sender.sendMessage("§a" + player.getDisplayName() + " is now glowing");
+            return true;
+        }
+
+        if (glowStateArgument.equals("off")) {
+            if (!player.isGlowing()) {
+                sender.sendMessage("§c" + player.getDisplayName() + " isn't glowing");
+                return true;
+            }
+
+            player.setGlowing(false);
+            sender.sendMessage("§a" + player.getDisplayName() + " is no longer glowing");
+            return true;
+        }
+
+        // Arguments must have been invalid
+        return false;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> list = new ArrayList<>();
-        if(args.length == 1) {
+        if (args.length == 1) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 list.add(p.getDisplayName());
             }
             return list;
         }
-        else if (args.length == 2) {
+
+        if (args.length == 2) {
             list.add("on");
             list.add("off");
             return list;
         }
-        else {
-            return null;
-        }
 
+        return null;
     }
 }
