@@ -3,7 +3,7 @@ version: ${project.version}
 main: io.github.midnightfury.everglow.EverGlow
 api-version: 1.16
 authors: [ Midnightfury ]
-description: Makes All Players Glow
+description: adds a glow command
 website: midnightfury.github.io
 commands:
   glow:
