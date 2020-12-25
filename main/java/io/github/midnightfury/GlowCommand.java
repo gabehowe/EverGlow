@@ -41,6 +41,7 @@ public class GlowCommand implements TabExecutor {
             sender.sendMessage("§a" + player.getDisplayName() + " is now glowing");
             return true;
         }
+
         if (glowStateArgument.equals("off")) {
             if (!player.isGlowing()) {
                 sender.sendMessage("§c" + player.getDisplayName() + " isn't glowing");
@@ -64,7 +65,9 @@ public class GlowCommand implements TabExecutor {
                 list.add(p.getDisplayName());
             }
             return list;
-        } else if (args.length == 2) {
+        }
+
+        if (args.length == 2) {
             list.add("on");
             list.add("off");
             return list;
