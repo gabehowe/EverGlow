@@ -7,5 +7,5 @@ description: adds a glow command
 website: midnightfury.github.io
 commands:
   glow:
-    usage: /glow <player> <on|off>
+    usage: /<command> <player> <on|off>
     description: turns glowing on or off (stays glowing with death)
