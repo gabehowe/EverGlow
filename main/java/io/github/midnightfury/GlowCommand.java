@@ -25,8 +25,8 @@ public class GlowCommand implements TabExecutor {
         }
 
         Player player = (Player) Bukkit.getPlayer(args[0]);
-        if (!player.isOnline()) {
-            sender.sendMessage("§c" + player.getDisplayName() + " is offline");
+        if (player == null || !player.isOnline()) {
+            sender.sendMessage("§c" + args[0] + " is offline or does not exist");
             return true;
         }
 
